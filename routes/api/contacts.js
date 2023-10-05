@@ -1,7 +1,8 @@
 import { Router } from 'express';
 import controllersContact from '../../controlers/controllersContacts.js';
-import { ctrlWrapper } from '../../helpers/ctrlWrapper.js';
-
+import { ctrlWrapper } from '../../helpers/index.js';
+import { contactAddShcema } from '../../models/Contact.js';
+import isBodyEmpty from '../../middlewares/isBodyEmpty.js';
 const { add, getAll } = controllersContact;
 const router = Router();
 
@@ -11,7 +12,7 @@ router.get('/', ctrlWrapper(getAll));
 
 // router.delete('/:contactId', ctrlWrapper(deleteById));
 
-router.post('/', ctrlWrapper(add));
+router.post('/', isBodyEmpty, ctrlWrapper(add));
 
 // router.put('/:contactId', ctrlWrapper(put));
 // , getById, deleteById,  put

@@ -1,17 +1,7 @@
-import Joi from 'joi';
 import Contact from '../models/Contact.js';
 import { HttpError } from '../helpers/index.js';
 // import * as contactServises from '../models/contacts.js';
-const contactAddShcema = Joi.object({
-  name: Joi.string().required(),
-  email: Joi.string()
-    .email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } })
-    .required(),
-  phone: Joi.string()
-    .pattern(/^\(\d{3}\) \d{3}-\d{4}$/)
-    .required(),
-  favorite: Joi.string(),
-});
+
 const getAll = async (req, res, next) => {
   try {
     const result = await Contact.find();

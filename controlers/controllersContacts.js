@@ -8,8 +8,7 @@ const contactAddShcema = Joi.object({
     .email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } })
     .required(),
   phone: Joi.string()
-    .length(10)
-    .pattern(/^[0-9]+$/)
+    .pattern(/^\(\d{3}\) \d{3}-\d{4}$/)
     .required(),
   favorite: Joi.string(),
 });

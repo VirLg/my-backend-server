@@ -1,32 +1,25 @@
 import Contact from '../models/Contact.js';
 import { HttpError } from '../helpers/index.js';
-// import * as contactServises from '../models/contacts.js';
+const getAll = async (req, res) => {
+  const result = await Contact.find();
 
-const getAll = async (req, res, next) => {
+  res.json(result);
+};
+
+const getById = async (req, res, next) => {
+  const { contactId } = req.params;
   try {
-    const result = await Contact.find();
-
+    const result = await Contact.findById(contactId);
     if (!result) {
+      console.log('result', 'result');
       throw HttpError(404, "message: 'Not found'");
     }
     res.json(result);
   } catch (error) {
+    console.log('result', error.status);
     next(error);
   }
 };
-
-// const getById = async (req, res, next) => {
-//   const { contactId } = req.params;
-//   try {
-//     const result = await contactServises.getContactById(contactId);
-//     if (!result) {
-//       throw HttpError(404, "message: 'Not found'");
-//     }
-//     res.json(result);
-//   } catch (error) {
-//     next(error);
-//   }
-// };
 
 // export const deleteById = async (req, res, next) => {
 //   const { contactId } = req.params;
@@ -42,7 +35,7 @@ const getAll = async (req, res, next) => {
 //   }
 // };
 
-export const add = async (req, res, next) => {
+export const add = async (req, res) => {
   const createContact = await Contact.create(req.body);
 
   res.status(201).json(createContact);
@@ -87,5 +80,5 @@ export const add = async (req, res, next) => {
 //   }
 // };
 
-export default { add, getAll };
-// , getById, deleteById,  put
+export default { add, getAll, getById };
+//, deleteById,  put

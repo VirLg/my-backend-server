@@ -27,6 +27,7 @@ const contactSchema = new Schema(
 );
 contactSchema.post('save', handleSaveError);
 const Contact = model('contact', contactSchema);
+export default Contact;
 
 export const contactAddShcema = Joi.object({
   name: Joi.string().required(),
@@ -38,4 +39,3 @@ export const contactAddShcema = Joi.object({
     .required(),
   favorite: Joi.string(),
 });
-export default Contact;

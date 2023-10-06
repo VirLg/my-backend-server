@@ -43,9 +43,8 @@ const getAll = async (req, res, next) => {
 // };
 
 export const add = async (req, res, next) => {
-  const { name, email, phone } = req.body;
-
   const createContact = await Contact.create(req.body);
+
   res.status(201).json(createContact);
   //   try {
   //     const createContact = await contactServises.addContact(name, email, phone);

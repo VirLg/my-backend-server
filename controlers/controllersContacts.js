@@ -21,19 +21,19 @@ const getById = async (req, res, next) => {
   }
 };
 
-// export const deleteById = async (req, res, next) => {
-//   const { contactId } = req.params;
-//   try {
-//     const result = await contactServises.removeContact(contactId);
-//     console.log('result', result);
-//     if (!result) {
-//       throw HttpError(404, `message: Not found `);
-//     }
-//     res.json(result);
-//   } catch (error) {
-//     next(error);
-//   }
-// };
+export const deleteById = async (req, res, next) => {
+  //   const { contactId } = req.params;
+  //   try {
+  //     const result = await contactServises.removeContact(contactId);
+  //     console.log('result', result);
+  //     if (!result) {
+  //       throw HttpError(404, `message: Not found `);
+  //     }
+  //     res.json(result);
+  //   } catch (error) {
+  //     next(error);
+  //   }
+};
 
 export const add = async (req, res, next) => {
   const createContact = await Contact.create(req.body);
@@ -41,20 +41,12 @@ export const add = async (req, res, next) => {
 };
 
 export const put = async (req, res, next) => {
-  //   const { error } = contactAddShcema.validate(req.body);
-  try {
-    const { contactId } = req.params;
-
-    const { name, email, phone } = req.body;
-    const result = await Contact.findByIdAndUpdate(contactId, req.body, {
-      new: true,
-    });
-
-    res.json(result);
-  } catch (error) {
-    next(error);
-  }
+  const { contactId } = req.params;
+  const result = await Contact.findByIdAndUpdate(contactId, req.body, {
+    new: true,
+    runValidators: true,
+  });
+  res.json(result);
 };
 
-export default { add, getAll, getById, put };
-//, deleteById
+export default { add, getAll, getById, put, deleteById };

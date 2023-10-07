@@ -1,8 +1,8 @@
 import Contact from '../models/Contact.js';
 import { HttpError } from '../helpers/index.js';
+
 const getAll = async (req, res) => {
   const result = await Contact.find();
-
   res.json(result);
 };
 
@@ -35,50 +35,36 @@ const getById = async (req, res, next) => {
 //   }
 // };
 
-export const add = async (req, res) => {
+export const add = async (req, res, next) => {
+  const a = req.body;
+  // try {
+  console.log('a', a);
   const createContact = await Contact.create(req.body);
-
   res.status(201).json(createContact);
-  //   try {
-  //     const createContact = await contactServises.addContact(name, email, phone);
-  //     if (!Object.keys(req.body).length) throw HttpError(400, 'All fields empty');
-  //     const { error } = contactAddShcema.validate(req.body);
-  //     if (error) {
-  //       throw HttpError(
-  //         404,
-  //         (error.message = `missing required ${error.details[0].path} field`)
-  //       );
-  //     }
-  //     res.status(201).json(createContact);
-  //   } catch (error) {
-  //     next(error);
-  //   }
+  // } catch (error) {
+  //   console.log('error', error);
+  //   next(error);
+  // }
 };
 
-// export const put = async (req, res, next) => {
-//   const { contactId } = req.params;
-//   const { name, email, phone } = req.body;
-//   const result = await contactServises.updateContact(
-//     contactId,
-//     name,
-//     email,
-//     phone
-//   );
-//   const { error } = contactAddShcema.validate(req.body);
-//   try {
-//     if (!Object.keys(req.body).length) {
-//       throw HttpError(400, 'All fields empty');
-//     } else if (error) {
-//       throw HttpError(
-//         404,
-//         (error.message = `missing required ${error.details[0].path} field`)
-//       );
-//     }
-//     res.json(result);
-//   } catch (error) {
-//     next(error);
-//   }
-// };
+export const put = async (req, res, next) => {
+  //   const { error } = contactAddShcema.validate(req.body);
+  try {
+    const { contactId } = req.params;
+    const { name, email, phone } = req.body;
+    const result = await Contact.findByIdAndUpdate(
+      contactId,
+      name,
+      email,
+      phone,
+      { new: true }
+    );
 
-export default { add, getAll, getById };
-//, deleteById,  put
+    res.json(result);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export default { add, getAll, getById, put };
+//, deleteById

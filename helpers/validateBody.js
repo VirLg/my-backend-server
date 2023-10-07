@@ -4,15 +4,10 @@ const validateBody = contactAddShcema => {
   const func = (req, res, next) => {
     try {
       contactAddShcema.validate(req.body)
-        ? next(
-            HttpError(
-              404,
-              (error.message = `missing required ${error.details[0].path} field`)
-            )
-          )
+        ? next(HttpError(404, 'Not Found!!'))
         : next();
     } catch (error) {
-      console.log('errorCTR', error);
+      console.log('errorVal', error);
       next(error);
     }
   };

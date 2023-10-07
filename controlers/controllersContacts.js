@@ -12,7 +12,7 @@ const getById = async (req, res, next) => {
     const result = await Contact.findById(contactId);
     if (!result) {
       console.log('result', 'result');
-      throw HttpError(404, "message: 'Not found'");
+      throw HttpError(404, 'Not found');
     }
     res.json(result);
   } catch (error) {
@@ -37,11 +37,13 @@ const getById = async (req, res, next) => {
 
 export const add = async (req, res, next) => {
   const a = req.body;
-  // try {
   console.log('a', a);
-  const createContact = await Contact.create(req.body);
-  res.status(201).json(createContact);
+  // try {
+  //   //   console.log('a', a);
+  //   // const createContact = await Contact.create(req.body);
+  //   // res.status(201).json(createContact);
   // } catch (error) {
+  //   const a = req.body;
   //   console.log('error', error);
   //   next(error);
   // }

@@ -11,7 +11,6 @@ const getById = async (req, res, next) => {
   try {
     const result = await Contact.findById(contactId);
     if (!result) {
-      console.log('result', 'result');
       throw HttpError(404, 'Not found');
     }
     res.json(result);
@@ -22,17 +21,17 @@ const getById = async (req, res, next) => {
 };
 
 export const deleteById = async (req, res, next) => {
-  //   const { contactId } = req.params;
-  //   try {
-  //     const result = await contactServises.removeContact(contactId);
-  //     console.log('result', result);
-  //     if (!result) {
-  //       throw HttpError(404, `message: Not found `);
-  //     }
-  //     res.json(result);
-  //   } catch (error) {
-  //     next(error);
-  //   }
+  const { contactId } = req.params;
+  try {
+    const result = await Contact.findByIdAndDelete(contactId);
+    if (!result) {
+      throw HttpError(404, 'Not found');
+    }
+    res.json(result);
+  } catch (error) {
+    console.log('result', error.status);
+    next(error);
+  }
 };
 
 export const add = async (req, res, next) => {

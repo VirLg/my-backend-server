@@ -36,14 +36,14 @@ const getById = async (req, res, next) => {
 // };
 
 export const add = async (req, res, next) => {
-  try {
-    const createContact = await Contact.create(req.body);
-    res.status(201).json(createContact);
-  } catch (error) {
-    const a = req.body;
-    console.log('error', error);
-    next(error);
-  }
+  const createContact = await Contact.create(req.body);
+  res.status(201).json(createContact);
+  // try {
+  // } catch (error) {
+  //   const a = req.body;
+  //   console.log('error', error);
+  //   next(error);
+  // }
 };
 
 export const put = async (req, res, next) => {

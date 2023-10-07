@@ -4,7 +4,9 @@ const validateBody = contactAddShcema => {
     try {
       const { error } = contactAddShcema.validate(req.body);
       if (error) {
-        return next(HttpError(404, 'Not Found!!'));
+        return next(
+          HttpError(404, `missing required ${error.details[0].path} field`)
+        );
       }
       return next();
     } catch (error) {

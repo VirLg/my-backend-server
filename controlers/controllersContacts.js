@@ -38,26 +38,17 @@ const getById = async (req, res, next) => {
 export const add = async (req, res, next) => {
   const createContact = await Contact.create(req.body);
   res.status(201).json(createContact);
-  // try {
-  // } catch (error) {
-  //   const a = req.body;
-  //   console.log('error', error);
-  //   next(error);
-  // }
 };
 
 export const put = async (req, res, next) => {
   //   const { error } = contactAddShcema.validate(req.body);
   try {
     const { contactId } = req.params;
+
     const { name, email, phone } = req.body;
-    const result = await Contact.findByIdAndUpdate(
-      contactId,
-      name,
-      email,
-      phone,
-      { new: true }
-    );
+    const result = await Contact.findByIdAndUpdate(contactId, req.body, {
+      new: true,
+    });
 
     res.json(result);
   } catch (error) {
